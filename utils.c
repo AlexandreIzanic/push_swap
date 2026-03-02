@@ -2,29 +2,40 @@
 
 void	print_node(int value)
 {
-	printf("%d\n", value);
+	ft_putnbr_fd(value, 1);
+	ft_putchar_fd('\n', 1);
 }
 
 int	is_number(char *str)
 {
-	int	i;
-	
+	long	nb;
+	int		i;
+	int		sign;
+
 	i = 0;
+	sign = 1;
 	if (!str || !*str)
 		return (0);
 	if (str[0] == '+' || str[0] == '-')
+	{
+		if (str[0] == '-')
+			sign = -1;
 		i++;
+	}
 	if (!str[i])
 		return (0);
+	nb = 0;
 	while (str[i])
 	{
-		if (i == 0 && (str[i] == '+' || str[i] == '-'))	
-			i++;
 		if (str[i] < '0' || str[i] > '9')
 			return (0);
+		nb = nb * 10 + (str[i] - '0');
+		if (sign == 1 && nb > 2147483647)
+			return (0);
+		if (sign == -1 && nb > 2147483648L)
+			return (0);
 		i++;
-	}	
-
+	}
 	return (1);
 }
 
@@ -36,6 +47,5 @@ int	is_sort(t_node *head)
 			return (0);
 		head = head->next;	
 	}
-	printf(GREEN "already sorted\n" RESET);
 	return (1);
 }

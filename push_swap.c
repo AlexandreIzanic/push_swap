@@ -241,7 +241,7 @@ int	main(int argc, char *argv[])
 	if (!is_sort(stack_a))
 	{
 		if (size == 2)
-			sa(&stack_a);
+			ra(&stack_a);
 		else if (size == 3)
 			sort_three(&stack_a);
 		else if (size <= 5)
