@@ -1,8 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   operations.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/03/02 12:00:00 by alex              #+#    #+#             */
+/*   Updated: 2026/03/02 12:00:00 by alex             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "utils.h"
 
-// SWAP
-
-void	swap(t_node **head)
+static void	swap(t_node **head)
 {
 	t_node	*first;
 	t_node	*second;
@@ -39,85 +49,7 @@ void	ss(t_node **head_a, t_node **head_b)
 	ft_putstr_fd("ss\n", 1);
 }
 
-// ROTATE
-void	rotate(t_node **head)
-{
-	t_node	*first;
-	t_node	*last;
-
-	if (!head || !*head || !(*head)->next)
-		return ;
-	first = *head;
-	last = *head;
-	while (last->next)
-		last = last->next;
-	*head = first->next;
-	first->next = NULL;
-	first->prev = last;
-	last->next = first;
-	(*head)->prev = NULL;
-}
-
-void	ra(t_node **head_a)
-{
-	rotate(head_a);
-	ft_putstr_fd("ra\n", 1);
-}
-
-void	rb(t_node **head_b)
-{
-	rotate(head_b);
-	ft_putstr_fd("rb\n", 1);
-}
-
-void	rr(t_node **head_a, t_node **head_b)
-{
-	rotate(head_a);
-	rotate(head_b);
-	ft_putstr_fd("rr\n", 1);
-}
-// REVERSE ROTATE
-void	reverse_rotate(t_node	**head)
-{
-	t_node	*first;
-	t_node	*last;
-
-	if (!head || !*head || !(*head)->next)
-		return ;
-	first = *head;
-	last = *head;
-	while (last->next)
-		last = last->next;
-	last->prev->next = NULL;
-	first->prev = last;
-	last->prev = NULL;
-	last->next = first;
-	*head = last;
-}
-
-void	rra(t_node **head_a)
-{
-	reverse_rotate(head_a);
-	ft_putstr_fd("rra\n", 1);
-}
-
-void	rrb(t_node **head_b)
-{
-	reverse_rotate(head_b);
-	ft_putstr_fd("rrb\n", 1);
-}
-
-void	rrr(t_node **head_a, t_node **head_b)
-{
-	reverse_rotate(head_a);
-	reverse_rotate(head_b);
-	ft_putstr_fd("rrr\n", 1);
-}
-
-
-// PUSH
-
-void	push(t_node **src, t_node **dst)
+static void	push(t_node **src, t_node **dst)
 {
 	t_node	*first;
 
@@ -144,103 +76,4 @@ void	pb(t_node **head_a, t_node **head_b)
 {
 	push(head_a, head_b);
 	ft_putstr_fd("pb\n", 1);
-}
-
-
-t_node	*dlstnew(int value)
-{
-	t_node	*node;
-
-	node = (t_node *)malloc(sizeof(t_node));
-	if (!node)
-		return (NULL);
-	node->value = value;
-	node->prev = NULL;
-	node->next = NULL;
-	return (node);
-}
-
-t_node	*dlstlast(t_node *lst)
-{
-	if (!lst)
-		return (NULL);
-	while (lst->next)
-		lst = lst->next;
-	return (lst);
-}
-
-void	dlstadd_back(t_node **lst, t_node *new_node)
-{
-	t_node	*last;
-
-	if (!lst || !new_node)
-		return ;
-	if (!*lst)
-	{
-		*lst = new_node;
-		return ;
-	}
-	last = dlstlast(*lst);
-	last->next = new_node;
-	new_node->prev = last;
-}
-
-void	dlstadd_front(t_node **lst, t_node *new_node)
-{
-	if (!lst || !new_node)
-		return ;
-	new_node->next = *lst;
-	if (*lst)
-		(*lst)->prev = new_node;
-	new_node->prev = NULL;
-	*lst = new_node;
-}
-
-int	dlstsize(t_node *lst)
-{
-	int	count;
-
-	count = 0;
-	while (lst)
-	{
-		count++;
-		lst = lst->next;
-	}
-	return (count);
-}
-
-void	dlstiter(t_node *lst, void (*f)(int))
-{
-	if (!f)
-		return ;
-	while (lst)
-	{
-		f(lst->value);
-		lst = lst->next;
-	}
-}
-
-void	dlstiter_index(t_node *lst, void (*f)(int))
-{
-	if (!f)
-		return ;
-	while (lst)
-	{
-		f(lst->index);
-		lst = lst->next;
-	}
-}
-
-void	dlstclear(t_node **lst)
-{
-	t_node	*tmp;
-
-	if (!lst)
-		return ;
-	while (*lst)
-	{
-		tmp = (*lst)->next;
-		free(*lst);
-		*lst = tmp;
-	}
 }

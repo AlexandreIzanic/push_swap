@@ -19,7 +19,12 @@ LIBFT		= $(LIBFT_DIR)/libft.a
 
 SRCS		= push_swap.c \
 			utils.c \
-			operations.c 
+			operations.c \
+			operations2.c \
+			operations3.c \
+			dlst.c \
+			parsing.c \
+			sort.c
 OBJS		= $(SRCS:.c=.o)
 
 all:		$(NAME)

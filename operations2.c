@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   operations2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,46 +12,39 @@
 
 #include "utils.h"
 
-int	is_number(char *str)
+static void	rotate(t_node **head)
 {
-	long	nb;
-	int		i;
-	int		sign;
+	t_node	*first;
+	t_node	*last;
 
-	i = 0;
-	sign = 1;
-	if (!str || !*str)
-		return (0);
-	if (str[0] == '+' || str[0] == '-')
-	{
-		if (str[0] == '-')
-			sign = -1;
-		i++;
-	}
-	if (!str[i])
-		return (0);
-	nb = 0;
-	while (str[i])
-	{
-		if (str[i] < '0' || str[i] > '9')
-			return (0);
-		nb = nb * 10 + (str[i] - '0');
-		if (sign == 1 && nb > 2147483647)
-			return (0);
-		if (sign == -1 && nb > 2147483648L)
-			return (0);
-		i++;
-	}
-	return (1);
+	if (!head || !*head || !(*head)->next)
+		return ;
+	first = *head;
+	last = *head;
+	while (last->next)
+		last = last->next;
+	*head = first->next;
+	first->next = NULL;
+	first->prev = last;
+	last->next = first;
+	(*head)->prev = NULL;
 }
 
-int	is_sort(t_node *head)
+void	ra(t_node **head_a)
 {
-	while (head && head->next)
-	{
-		if (head->value > head->next->value)
-			return (0);
-		head = head->next;	
-	}
-	return (1);
+	rotate(head_a);
+	ft_putstr_fd("ra\n", 1);
+}
+
+void	rb(t_node **head_b)
+{
+	rotate(head_b);
+	ft_putstr_fd("rb\n", 1);
+}
+
+void	rr(t_node **head_a, t_node **head_b)
+{
+	rotate(head_a);
+	rotate(head_b);
+	ft_putstr_fd("rr\n", 1);
 }
