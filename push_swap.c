@@ -1,5 +1,47 @@
 #include "utils.h"
 
+void	index_stack(t_node *stack)
+{
+	t_node	*curr;
+	t_node	*comp;
+	int		index;
+
+	curr = stack;
+	while (curr)
+	{
+		index = 0;
+		comp = stack;
+		while (comp)
+		{
+			if (comp->value < curr->value)
+				index++;
+			comp = comp->next;
+		}
+		curr->index = index;
+		curr = curr->next;
+	}
+}
+
+int	has_duplicate(t_node *stack_a)
+{
+	t_node	*curr;
+	t_node	*comp;
+
+	curr = stack_a;
+	while (curr)
+	{
+		comp = curr->next;
+		while (comp)
+		{
+			if (curr->value == comp->value)
+				return (1);
+			comp = comp->next;	
+		}
+		curr = curr->next;
+	}
+	return (0);
+}
+
 void	print_bin(int nb)
 {
 	int	i;
@@ -187,12 +229,15 @@ int	main(int argc, char *argv[])
 		size = parse_args(&stack_a, argv[1]);
 	else
 		size = parse_argv(&stack_a, argc, argv);
-	if (size <= 0)
+	if (size <= 0 || has_duplicate(stack_a))
 	{
 		ft_putstr_fd("Error\n", 2);
 		dlstclear(&stack_a);
 		return (1);
 	}
+	index_stack(stack_a);
+	printf("index:\n");
+	dlstiter(stack_a, print_node);
 	if (!is_sort(stack_a))
 	{
 		if (size == 2)
@@ -204,7 +249,9 @@ int	main(int argc, char *argv[])
 		else
 			radix_sort(&stack_a, &stack_b);
 	}
-	printf("final \n\n");
+	printf("\n\nfinal index \n\n");
+	dlstiter_index(stack_a, print_node);
+	printf("\n\nfinal \n\n");
 	dlstiter(stack_a, print_node);
 	dlstiter(stack_a, print_bin);
 	dlstclear(&stack_a);

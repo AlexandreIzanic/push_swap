@@ -60,21 +60,21 @@ void	rotate(t_node **head)
 
 void	ra(t_node **head_a)
 {
-	printf("ra \n");
 	rotate(head_a);
+	ft_putstr_fd("ra\n", 1);
 }
 
 void	rb(t_node **head_b)
 {
-	printf("rb \n");
 	rotate(head_b);
+	ft_putstr_fd("rb\n", 1);
 }
 
 void	rr(t_node **head_a, t_node **head_b)
 {
-	printf("rr");
 	rotate(head_a);
 	rotate(head_b);
+	ft_putstr_fd("rr\n", 1);
 }
 // REVERSE ROTATE
 void	reverse_rotate(t_node	**head)
@@ -97,21 +97,21 @@ void	reverse_rotate(t_node	**head)
 
 void	rra(t_node **head_a)
 {
-	printf("rra \n");
 	reverse_rotate(head_a);
+	ft_putstr_fd("rra\n", 1);
 }
 
 void	rrb(t_node **head_b)
 {
-	printf("rrb \n");
 	reverse_rotate(head_b);
+	ft_putstr_fd("rrb\n", 1);
 }
 
 void	rrr(t_node **head_a, t_node **head_b)
 {
-	printf("rrr \n");
 	reverse_rotate(head_a);
 	reverse_rotate(head_b);
+	ft_putstr_fd("rrr\n", 1);
 }
 
 
@@ -136,14 +136,14 @@ void	push(t_node **src, t_node **dst)
 
 void	pa(t_node **head_a, t_node **head_b)
 {
-	printf("pa \n");
 	push(head_b, head_a);
+	ft_putstr_fd("pa\n", 1);
 }
 
 void	pb(t_node **head_a, t_node **head_b)
 {
-	printf("pb \n");
 	push(head_a, head_b);
+	ft_putstr_fd("pb\n", 1);
 }
 
 
@@ -216,6 +216,17 @@ void	dlstiter(t_node *lst, void (*f)(int))
 	while (lst)
 	{
 		f(lst->value);
+		lst = lst->next;
+	}
+}
+
+void	dlstiter_index(t_node *lst, void (*f)(int))
+{
+	if (!f)
+		return ;
+	while (lst)
+	{
+		f(lst->index);
 		lst = lst->next;
 	}
 }

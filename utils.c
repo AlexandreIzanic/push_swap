@@ -32,7 +32,7 @@ int	is_sort(t_node *head)
 {
 	while (head && head->next)
 	{
-		if (head->value >= head->next->value)
+		if (head->value > head->next->value)
 			return (0);
 		head = head->next;	
 	}

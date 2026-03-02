@@ -21,6 +21,7 @@
 typedef struct s_node
 {
 	int				value;
+	int				index;
 	struct s_node	*prev;
 	struct s_node	*next;
 }	t_node;
@@ -32,6 +33,7 @@ void	dlstadd_front(t_node **lst, t_node *new_node);
 t_node	*dlstlast(t_node *lst);
 int		dlstsize(t_node *lst);
 void	dlstiter(t_node *lst, void (*f)(int));
+void	dlstiter_index(t_node *lst, void (*f)(int));
 void	dlstclear(t_node **lst);
 
 /* utils */
