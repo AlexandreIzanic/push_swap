@@ -12,28 +12,6 @@
 
 #include "utils.h"
 
-void	index_stack(t_node *stack)
-{
-	t_node	*curr;
-	t_node	*comp;
-	int		index;
-
-	curr = stack;
-	while (curr)
-	{
-		index = 0;
-		comp = stack;
-		while (comp)
-		{
-			if (comp->value < curr->value)
-				index++;
-			comp = comp->next;
-		}
-		curr->index = index;
-		curr = curr->next;
-	}
-}
-
 int	has_duplicate(t_node *stack_a)
 {
 	t_node	*curr;
@@ -64,6 +42,15 @@ static void	free_split(char **args)
 	free(args);
 }
 
+static int	add_arg(t_node **stack_a, char *arg)
+{
+	if (!is_number(arg))
+		return (0);
+	if (!dlstadd_back(stack_a, dlstnew(ft_atoi(arg))))
+		return (0);
+	return (1);
+}
+
 int	parse_args(t_node **stack_a, char *str)
 {
 	char	**args;
@@ -77,14 +64,12 @@ int	parse_args(t_node **stack_a, char *str)
 	count = 0;
 	while (args[i])
 	{
-		if (!is_number(args[i]))
+		if (!add_arg(stack_a, args[i++]))
 		{
 			free_split(args);
 			return (-1);
 		}
-		dlstadd_back(stack_a, dlstnew(ft_atoi(args[i])));
 		count++;
-		i++;
 	}
 	free_split(args);
 	return (count);
@@ -101,7 +86,8 @@ int	parse_argv(t_node **stack_a, int argc, char *argv[])
 	{
 		if (!is_number(argv[i]))
 			return (-1);
-		dlstadd_back(stack_a, dlstnew(ft_atoi(argv[i])));
+		if (!dlstadd_back(stack_a, dlstnew(ft_atoi(argv[i]))))
+			return (-1);
 		count++;
 		i++;
 	}

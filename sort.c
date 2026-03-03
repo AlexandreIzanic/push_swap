@@ -18,9 +18,9 @@ void	sort_three(t_node **stack_a)
 	int	b;
 	int	c;
 
-	a = (*stack_a)->value;
-	b = (*stack_a)->next->value;
-	c = (*stack_a)->next->next->value;
+	a = (*stack_a)->index;
+	b = (*stack_a)->next->index;
+	c = (*stack_a)->next->next->index;
 	if (a > b && b < c && a < c)
 		sa(stack_a);
 	else if (a > b && b > c)
@@ -46,15 +46,15 @@ static int	find_min_pos(t_node *stack)
 	int		i;
 	t_node	*current;
 
-	min = stack->value;
+	min = stack->index;
 	pos = 0;
 	i = 0;
 	current = stack;
 	while (current)
 	{
-		if (current->value < min)
+		if (current->index < min)
 		{
-			min = current->value;
+			min = current->index;
 			pos = i;
 		}
 		current = current->next;
@@ -102,6 +102,6 @@ void	sort_two(t_node **stack_a)
 	t_node	*head;
 
 	head = *stack_a;
-	if (head->value > head->next->value)
-		ra(stack_a);
+	if (head->index > head->next->index)
+		sa(stack_a);
 }

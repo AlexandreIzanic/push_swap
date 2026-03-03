@@ -49,7 +49,7 @@ void	ss(t_node **head_a, t_node **head_b)
 	ft_putstr_fd("ss\n", 1);
 }
 
-static void	push(t_node **src, t_node **dst)
+void	push(t_node **src, t_node **dst)
 {
 	t_node	*first;
 
@@ -64,16 +64,4 @@ static void	push(t_node **src, t_node **dst)
 		(*dst)->prev = first;
 	first->prev = NULL;
 	*dst = first;
-}
-
-void	pa(t_node **head_a, t_node **head_b)
-{
-	push(head_b, head_a);
-	ft_putstr_fd("pa\n", 1);
-}
-
-void	pb(t_node **head_a, t_node **head_b)
-{
-	push(head_a, head_b);
-	ft_putstr_fd("pb\n", 1);
 }

@@ -48,3 +48,9 @@ void	rr(t_node **head_a, t_node **head_b)
 	rotate(head_b);
 	ft_putstr_fd("rr\n", 1);
 }
+
+void	pb(t_node **head_a, t_node **head_b)
+{
+	push(head_a, head_b);
+	ft_putstr_fd("pb\n", 1);
+}

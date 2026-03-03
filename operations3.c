@@ -48,3 +48,9 @@ void	rrr(t_node **head_a, t_node **head_b)
 	reverse_rotate(head_b);
 	ft_putstr_fd("rrr\n", 1);
 }
+
+void	pa(t_node **head_a, t_node **head_b)
+{
+	push(head_b, head_a);
+	ft_putstr_fd("pa\n", 1);
+}

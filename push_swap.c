@@ -49,6 +49,18 @@ void	radix_sort(t_node **stack_a, t_node **stack_b)
 	}
 }
 
+static void	sort_stack(t_node **stack_a, t_node **stack_b, int size)
+{
+	if (size == 2)
+		sort_two(stack_a);
+	else if (size == 3)
+		sort_three(stack_a);
+	else if (size <= 5)
+		sort_five(stack_a, stack_b, size);
+	else
+		radix_sort(stack_a, stack_b);
+}
+
 int	main(int argc, char *argv[])
 {
 	t_node	*stack_a;
@@ -58,7 +70,7 @@ int	main(int argc, char *argv[])
 	stack_a = NULL;
 	stack_b = NULL;
 	if (argc < 2)
-		return (1);
+		return (0);
 	if (argc == 2)
 		size = parse_args(&stack_a, argv[1]);
 	else
@@ -71,16 +83,7 @@ int	main(int argc, char *argv[])
 	}
 	index_stack(stack_a);
 	if (!is_sort(stack_a))
-	{
-		if (size == 2)
-			sort_two(&stack_a);
-		else if (size == 3)
-			sort_three(&stack_a);
-		else if (size <= 5)
-			sort_five(&stack_a, &stack_b, size);
-		else
-			radix_sort(&stack_a, &stack_b);
-	}
+		sort_stack(&stack_a, &stack_b, size);
 	dlstclear(&stack_a);
 	dlstclear(&stack_b);
 	return (0);

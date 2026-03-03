@@ -35,20 +35,21 @@ t_node	*dlstlast(t_node *lst)
 	return (lst);
 }
 
-void	dlstadd_back(t_node **lst, t_node *new_node)
+int	dlstadd_back(t_node **lst, t_node *new_node)
 {
 	t_node	*last;
 
 	if (!lst || !new_node)
-		return ;
+		return (0);
 	if (!*lst)
 	{
 		*lst = new_node;
-		return ;
+		return (1);
 	}
 	last = dlstlast(*lst);
 	last->next = new_node;
 	new_node->prev = last;
+	return (1);
 }
 
 int	dlstsize(t_node *lst)

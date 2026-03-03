@@ -26,7 +26,7 @@ typedef struct s_node
 
 /* doubly linked list functions */
 t_node	*dlstnew(int value);
-void	dlstadd_back(t_node **lst, t_node *new_node);
+int		dlstadd_back(t_node **lst, t_node *new_node);
 t_node	*dlstlast(t_node *lst);
 int		dlstsize(t_node *lst);
 void	dlstclear(t_node **lst);
@@ -48,6 +48,7 @@ void	sort_five(t_node **stack_a, t_node **stack_b, int size);
 void	radix_sort(t_node **stack_a, t_node **stack_b);
 
 /* operations */
+void	push(t_node **src, t_node **dst);
 void	sa(t_node **head_a);
 void	sb(t_node **head_b);
 void	ss(t_node **head_a, t_node **head_b);

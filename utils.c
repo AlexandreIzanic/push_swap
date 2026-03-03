@@ -12,24 +12,10 @@
 
 #include "utils.h"
 
-int	is_number(char *str)
+static int	check_digits(char *str, int i, int sign)
 {
 	long	nb;
-	int		i;
-	int		sign;
 
-	i = 0;
-	sign = 1;
-	if (!str || !*str)
-		return (0);
-	if (str[0] == '+' || str[0] == '-')
-	{
-		if (str[0] == '-')
-			sign = -1;
-		i++;
-	}
-	if (!str[i])
-		return (0);
 	nb = 0;
 	while (str[i])
 	{
@@ -45,13 +31,55 @@ int	is_number(char *str)
 	return (1);
 }
 
+int	is_number(char *str)
+{
+	int		i;
+	int		sign;
+
+	i = 0;
+	sign = 1;
+	if (!str || !*str)
+		return (0);
+	if (str[0] == '+' || str[0] == '-')
+	{
+		if (str[0] == '-')
+			sign = -1;
+		i++;
+	}
+	if (!str[i])
+		return (0);
+	return (check_digits(str, i, sign));
+}
+
 int	is_sort(t_node *head)
 {
 	while (head && head->next)
 	{
 		if (head->value > head->next->value)
 			return (0);
-		head = head->next;	
+		head = head->next;
 	}
 	return (1);
+}
+
+void	index_stack(t_node *stack)
+{
+	t_node	*curr;
+	t_node	*comp;
+	int		index;
+
+	curr = stack;
+	while (curr)
+	{
+		index = 0;
+		comp = stack;
+		while (comp)
+		{
+			if (comp->value < curr->value)
+				index++;
+			comp = comp->next;
+		}
+		curr->index = index;
+		curr = curr->next;
+	}
 }
